@@ -113,4 +113,31 @@ void main() {
       );
     });
   });
+
+  group("m-Block法", () {
+    test('存在しない', () {
+      expect(
+        mBlockHo(sorted, target),
+        -1,
+      );
+    });
+    test('最初', () {
+      expect(
+        sorted[mBlockHo(sorted, sorted.first)],
+        sorted.first,
+      );
+    });
+    test('真ん中', () {
+      expect(
+        sorted[mBlockHo(sorted, sorted[targetIndex])],
+        sorted[targetIndex],
+      );
+    });
+    test('最後', () {
+      expect(
+        sorted[mBlockHo(sorted, sorted.last)],
+        sorted.last,
+      );
+    });
+  });
 }
