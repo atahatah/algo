@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 /// 配列
 class Array<T> {
   Array(this.n)
@@ -95,7 +97,13 @@ class LinkedList<T> {
 extension OperatorOnComparable on Comparable {
   bool operator >(Comparable other) => compareTo(other) > 0;
   bool operator <(Comparable other) => compareTo(other) < 0;
+  bool operator >=(Comparable other) => compareTo(other) >= 0;
+  bool operator <=(Comparable other) => compareTo(other) <= 0;
 }
+// extension OperatorOnNullableComparable on Comparable? {
+//   bool operator >(Comparable? other) => compareTo(other) > 0;
+//   bool operator <(Comparable? other) => compareTo(other) < 0;
+// }
 
 /// ２分探索法に対応するデータ構造
 class BSTnode<T extends Comparable> {
@@ -124,4 +132,93 @@ BSTnode<T>? searchBSTnode<T extends Comparable>(
     }
   }
   return null;
+}
+
+/// 配列で実現したスタック
+class ArrayStack<T> {
+  ArrayStack(this.n) : _stack = List.filled(n, null, growable: false);
+  final int n;
+  int top = 0;
+  final List<T?> _stack;
+
+  void push(T value) {
+    _stack[top] = value;
+    top++;
+  }
+
+  T pop() {
+    final removed = _stack[top - 1];
+    top--;
+    return removed!;
+  }
+}
+
+/// 連結リストで実現したスタック
+class LinkedListStack<T> {
+  late var head = LinkedListData<T>(
+    data: null,
+    next: null,
+  );
+
+  void push(T value) {
+    head.next = LinkedListData(data: value, next: head.next);
+  }
+
+  T? pop() {
+    final removed = head.next;
+    head.next = head.next?.next;
+    return removed?.data;
+  }
+}
+
+/// 配列によるキューの実現
+class ArrayQueue<T> {
+  ArrayQueue(this.maxSize)
+      : _queue = List.filled(maxSize, null, growable: false);
+
+  final int maxSize;
+  int head = 0;
+  int tail = 0;
+  final List<T?> _queue;
+  @visibleForTesting
+  List<T?> get queue => _queue;
+
+  void enqueue(T x) {
+    tail = (tail + 1) % maxSize;
+    _queue[tail] = x;
+  }
+
+  T dequeue() {
+    head = (head + 1) % maxSize;
+    return _queue[head]!;
+  }
+}
+
+/// 連結リストによるキューの実現
+class LinkedListQueue<T> {
+  var head = LinkedListData<T>(data: null, next: null);
+  late var tail = head;
+
+  void enqueue(T x) {
+    tail.next = LinkedListData<T>(data: x, next: null);
+    tail = tail.next!;
+  }
+
+  T dequeue() {
+    final removed = head.next;
+    head = head.next!;
+    return removed!.data!;
+  }
+}
+
+/// ヒープ
+class Heap<T extends Comparable> {
+  Heap(this.maxSize) : _heap = List.filled(maxSize + 1, null);
+  final int maxSize;
+  final List<T?> _heap;
+  var n = 0;
+
+  void pushHeap(T x) {}
+
+  T deleteMax() {}
 }

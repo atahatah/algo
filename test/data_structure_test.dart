@@ -1,4 +1,5 @@
 import 'package:algo/data_structure.dart';
+import 'package:collection/collection.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -138,8 +139,93 @@ void main() {
     test("存在するデータの探索", () {
       expect(searchBSTnode(root, 13)?.key, 13);
     });
-    test("存在するデータの探索", () {
+    test("存在しないデータの探索", () {
       expect(searchBSTnode(root, 22), null);
+    });
+  });
+
+  group("スタック", () {
+    test("配列で実現したスタックのpush, pop", () {
+      final testData = [5, 27, 12];
+      final stack = ArrayStack<int>(3);
+
+      for (final d in testData) {
+        stack.push(d);
+      }
+
+      // 各要素が正しく入ったか確認
+      for (final d in testData.reversed) {
+        expect(stack.pop(), d);
+      }
+      // 全ての要素がpopされているかを確認
+      expect(stack.top, 0);
+    });
+    test("連結リストで実現したスタックのpush, pop", () {
+      final testData = [5, 27, 12];
+      final stack = LinkedListStack<int>();
+
+      for (final d in testData) {
+        stack.push(d);
+      }
+
+      // 各要素が正しく入ったかを確認
+      for (final d in testData.reversed) {
+        expect(stack.pop(), d);
+      }
+      // 全ての要素がpopされているかを確認
+      expect(stack.head.next, null);
+    });
+  });
+
+  group("キュー", () {
+    test("配列によるキューのenqueue, dequeueによる位置の確認", () {
+      final queue = ArrayQueue(11);
+
+      for (final d in [1, 2, 3, 4]) {
+        queue.enqueue(d);
+        queue.dequeue();
+      }
+      for (final d in [38, 15, 21, 6]) {
+        queue.enqueue(d);
+      }
+
+      queue.enqueue(53);
+      queue.dequeue();
+      queue.enqueue(48);
+      queue.enqueue(74);
+
+      expect(queue.head, 5);
+      expect(queue.tail, 0);
+    });
+    test("連結リストによるキューのenqueue, dequeue", () {
+      final testData = [3, 2, 6, 1];
+      final queue = LinkedListQueue();
+
+      for (final d in testData) {
+        queue.enqueue(d);
+      }
+
+      for (final d in testData) {
+        expect(queue.dequeue(), d);
+      }
+    });
+  });
+
+  group("ヒープ", () {
+    test("push, delete max", () {
+      final testData = [72, 35, 47, 18, 29, 32, 13, 5, 9, 46]..shuffle();
+      final heap = Heap(testData.length + 1);
+
+      for (final d in testData) {
+        heap.pushHeap(d);
+      }
+
+      // 大きい順に取り出せるかの確認
+      for (final d in testData.sorted((a, b) => b.compareTo(a))) {
+        expect(heap.deleteMax(), d);
+      }
+      // 空になっているかの確認
+      expect(heap.n, 0);
     });
   });
 }
