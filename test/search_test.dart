@@ -6,11 +6,12 @@ import 'package:test/test.dart';
 
 final r = Random();
 
+/// 0 < value <= `max`の乱数を生成
 int next(int max, {int? without}) {
-  if (without == null) return r.nextInt(max + 1);
+  if (without == null) return r.nextInt(max) + 1;
 
   int result;
-  while ((result = r.nextInt(max + 1)) == without) {}
+  while ((result = r.nextInt(max) + 1) == without) {}
   return result;
 }
 
@@ -136,6 +137,65 @@ void main() {
     test('最後', () {
       expect(
         sorted[mBlockHo(sorted, sorted.last)],
+        sorted.last,
+      );
+    });
+  });
+
+  group("２分探索法", () {
+    test('存在しない', () {
+      expect(
+        niBunTansakuHou(sorted, target),
+        -1,
+      );
+    });
+    test('最初', () {
+      expect(
+        sorted[niBunTansakuHou(sorted, sorted.first)],
+        sorted.first,
+      );
+    });
+    test('真ん中', () {
+      expect(
+        sorted[niBunTansakuHou(sorted, sorted[targetIndex])],
+        sorted[targetIndex],
+      );
+    });
+    test('最後', () {
+      expect(
+        sorted[niBunTansakuHou(sorted, sorted.last)],
+        sorted.last,
+      );
+    });
+  });
+
+  group("ハッシュ法", () {
+    final hashSize = sorted.length * 2;
+    final hash = createHashFunction(hashSize);
+    final htb = createHashTable(sorted, hash, hashSize);
+    assert((List.from(htb)..removeWhere((element) => element == 0)).length ==
+        sorted.length);
+    test('存在しない', () {
+      expect(
+        hashHou(htb, target, hash),
+        -1,
+      );
+    });
+    test('最初', () {
+      expect(
+        htb[hashHou(htb, sorted.first, hash)],
+        sorted.first,
+      );
+    });
+    test('真ん中', () {
+      expect(
+        htb[hashHou(htb, sorted[targetIndex], hash)],
+        sorted[targetIndex],
+      );
+    });
+    test('最後', () {
+      expect(
+        htb[hashHou(htb, sorted.last, hash)],
         sorted.last,
       );
     });
