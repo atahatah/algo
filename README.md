@@ -7,4 +7,5 @@
 
 - bin 不使用
 - lib/search.dart 探索アルゴリズム
+- lib/data_structure.dart 基本的なデータ構造
 - test テスト
