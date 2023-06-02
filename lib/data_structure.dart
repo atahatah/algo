@@ -218,7 +218,44 @@ class Heap<T extends Comparable> {
   final List<T?> _heap;
   var n = 0;
 
-  void pushHeap(T x) {}
+  @visibleForTesting
+  List<T?> get heap => _heap;
 
-  T deleteMax() {}
+  void pushHeap(T x) {
+    if (++n > maxSize) throw "Heap Overflow";
+    int i = n;
+    _heap[n] = x;
+    while (i > 1 && _heap[i ~/ 2]! < x) {
+      _heap[i] = _heap[i ~/ 2];
+      i ~/= 2;
+    }
+    _heap[i] = x;
+  }
+
+  T deleteMax() {
+    if (n == 0) throw "Heap UnderFlow";
+    // 最大である根のデータを取り出す
+    final removed = _heap[1];
+    // 最後のデータを根に移動し、これを適切な位置まで下す
+    final x = _heap[1] = _heap[n];
+    n--;
+
+    /// 根に移動したデータの現在位置
+    int i = 1;
+    while (i * 2 <= n) {
+      /// iの子のうち、大きいデータを持つ方がj
+      int j = i * 2;
+      if (i * 2 + 1 <= n && _heap[i * 2]! < _heap[i * 2 + 1]!) {
+        j = i * 2 + 1;
+      }
+      if (heap[j]! < x!) break;
+
+      // iとjのデータを交換
+      _heap[i] = _heap[j];
+      i = j;
+    }
+    heap[i] = heap[n + 1];
+
+    return removed!;
+  }
 }
