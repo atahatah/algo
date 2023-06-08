@@ -111,8 +111,39 @@ class BSTnode<T extends Comparable> {
       : assert((lson != null && lson.key < key) || lson == null),
         assert((rson != null && key < rson.key) || rson == null);
 
-  final T key;
+  BSTnode.from(BSTnode<T> from)
+      : this(
+          from.key,
+          lson: from.lson != null ? BSTnode.from(from.lson!) : null,
+          rson: from.rson != null ? BSTnode.from(from.rson!) : null,
+        );
+
+  T key;
   BSTnode<T>? lson, rson;
+
+  @override
+  String toString() {
+    var s = "";
+    if (lson != null) {
+      s += "$lson ";
+    }
+    s += "$key ";
+    if (rson != null) {
+      s += " $rson ";
+    }
+    return s;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BSTnode &&
+        other.key == key &&
+        other.lson == lson &&
+        other.rson == rson;
+  }
+
+  @override
+  int get hashCode => Object.hash(key, lson, rson);
 }
 
 /// 探索手続き

@@ -228,4 +228,68 @@ void main() {
       expect(heap.n, 0);
     });
   });
+
+  group("BSTnode class", () {
+    test("1要素", () {
+      expect(BSTnode(1), BSTnode(1));
+    });
+    test("2要素", () {
+      expect(BSTnode(1, rson: BSTnode(2)), BSTnode(1, rson: BSTnode(2)));
+    });
+    test("巨大", () {
+      expect(
+          BSTnode(
+            lson: BSTnode(
+              lson: BSTnode(
+                lson: BSTnode(2),
+                4,
+                rson: BSTnode(
+                  lson: BSTnode(5),
+                  6,
+                ),
+              ),
+              8,
+              rson: BSTnode(
+                12,
+                rson: BSTnode(13),
+              ),
+            ),
+            15,
+            rson: BSTnode(
+              25,
+              rson: BSTnode(
+                lson: BSTnode(26),
+                27,
+                rson: BSTnode(29),
+              ),
+            ),
+          ),
+          BSTnode(
+            lson: BSTnode(
+              lson: BSTnode(
+                lson: BSTnode(2),
+                4,
+                rson: BSTnode(
+                  lson: BSTnode(5),
+                  6,
+                ),
+              ),
+              8,
+              rson: BSTnode(
+                12,
+                rson: BSTnode(13),
+              ),
+            ),
+            15,
+            rson: BSTnode(
+              25,
+              rson: BSTnode(
+                lson: BSTnode(26),
+                27,
+                rson: BSTnode(29),
+              ),
+            ),
+          ));
+    });
+  });
 }
