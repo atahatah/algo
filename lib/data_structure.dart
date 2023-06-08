@@ -112,7 +112,7 @@ class BSTnode<T extends Comparable> {
         assert((rson != null && key < rson.key) || rson == null);
 
   final T key;
-  final BSTnode<T>? lson, rson;
+  BSTnode<T>? lson, rson;
 }
 
 /// 探索手続き
