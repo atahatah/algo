@@ -330,4 +330,378 @@ void main() {
       expect(avlGiHeikoJoken(avl).$1, false);
     });
   });
+  group("2色木", () {
+    final niShokuGi = NiShokuGiNode(
+      lson: NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            2,
+            NiShoku.red,
+            rson: NiShokuGiNode.black(),
+          ),
+          5,
+          NiShoku.black,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            6,
+            NiShoku.red,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+        8,
+        NiShoku.red,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode.black(),
+          12,
+          NiShoku.black,
+          rson: NiShokuGiNode.black(),
+        ),
+      ),
+      15,
+      NiShoku.black,
+      rson: NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            17,
+            NiShoku.red,
+            rson: NiShokuGiNode.black(),
+          ),
+          18,
+          NiShoku.black,
+          rson: NiShokuGiNode.black(),
+        ),
+        25,
+        NiShoku.red,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode.black(),
+          27,
+          NiShoku.black,
+          rson: NiShokuGiNode.black(),
+        ),
+      ),
+    );
+    test("2色木平衡条件を満たす", () {
+      expect(niShokuGiHeikoJoken(NiShokuGiNode.from(niShokuGi)).$1, true);
+    });
+    test("2色木平衡条件を満たさない(どの内部節点も2の子を持つ)", () {
+      final niShokuGi = NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              2,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            5,
+            NiShoku.black,
+            rson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              6,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+          ),
+          8,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            12,
+            NiShoku.black,
+            // rson: NiShokuGiNode.black(),
+          ),
+        ),
+        15,
+        NiShoku.black,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              17,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            18,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+          25,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            27,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+      );
+      expect(niShokuGiHeikoJoken(niShokuGi).$1, false);
+    });
+    test("2色木平衡条件を満たさない(葉は全て黒である)", () {
+      final niShokuGi = NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              2,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            5,
+            NiShoku.black,
+            rson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              6,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+          ),
+          8,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            12,
+            NiShoku.black,
+            rson: NiShokuGiNode<int>(null, NiShoku.red),
+          ),
+        ),
+        15,
+        NiShoku.black,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              17,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            18,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+          25,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            27,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+      );
+      expect(niShokuGiHeikoJoken(niShokuGi).$1, false);
+    });
+    test("2色木平衡条件を満たさない(葉はデータを保持しない)", () {
+      final niShokuGi = NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              2,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            5,
+            NiShoku.black,
+            rson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              6,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+          ),
+          8,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            12,
+            NiShoku.black,
+            rson: NiShokuGiNode(14, NiShoku.red),
+          ),
+        ),
+        15,
+        NiShoku.black,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              17,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            18,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+          25,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            27,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+      );
+      expect(niShokuGiHeikoJoken(niShokuGi).$1, false);
+    });
+    test("2色木平衡条件を満たさない(赤節点の子は両方とも黒である)", () {
+      final niShokuGi = NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              2,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            5,
+            NiShoku.black,
+            rson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              6,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+          ),
+          8,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            12,
+            NiShoku.red,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+        15,
+        NiShoku.black,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              17,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            18,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+          25,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            27,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+      );
+      expect(niShokuGiHeikoJoken(niShokuGi).$1, false);
+    });
+    test("2色木平衡条件を満たさない(根から葉までの全経路は同数の黒節点を持つ)", () {
+      final niShokuGi = NiShokuGiNode(
+        lson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              2,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            5,
+            NiShoku.black,
+            rson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              6,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+          ),
+          8,
+          NiShoku.red,
+          rson: NiShokuGiNode.black(),
+        ),
+        15,
+        NiShoku.black,
+        rson: NiShokuGiNode(
+          lson: NiShokuGiNode(
+            lson: NiShokuGiNode(
+              lson: NiShokuGiNode.black(),
+              17,
+              NiShoku.red,
+              rson: NiShokuGiNode.black(),
+            ),
+            18,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+          25,
+          NiShoku.red,
+          rson: NiShokuGiNode(
+            lson: NiShokuGiNode.black(),
+            27,
+            NiShoku.black,
+            rson: NiShokuGiNode.black(),
+          ),
+        ),
+      );
+      expect(niShokuGiHeikoJoken(niShokuGi).$1, false);
+    });
+    test("挿入", () {
+      expect(
+          niShokuGiHeikoJoken(insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 1))
+              .$1,
+          true,
+          reason: "1");
+      expect(
+          niShokuGiHeikoJoken(insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 3))
+              .$1,
+          true,
+          reason: "3");
+      expect(
+          niShokuGiHeikoJoken(insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 7))
+              .$1,
+          true,
+          reason: "7");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 10))
+              .$1,
+          true,
+          reason: "10");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 13))
+              .$1,
+          true,
+          reason: "13");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 16))
+              .$1,
+          true,
+          reason: "16");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 19))
+              .$1,
+          true,
+          reason: "19");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 26))
+              .$1,
+          true,
+          reason: "26");
+      expect(
+          niShokuGiHeikoJoken(
+                  insertNiShokuGi(NiShokuGiNode.from(niShokuGi), 28))
+              .$1,
+          true,
+          reason: "28");
+    });
+  });
 }
