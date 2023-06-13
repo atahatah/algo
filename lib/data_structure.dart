@@ -123,15 +123,12 @@ class BSTnode<T extends Comparable> {
 
   @override
   String toString() {
-    var s = "";
-    if (lson != null) {
-      s += "$lson ";
-    }
-    s += "$key ";
-    if (rson != null) {
-      s += " $rson ";
-    }
-    return s;
+    return switch ((lson, rson)) {
+      (null, null) => "$key",
+      (_, null) => "($lson/$key)",
+      (null, _) => "($key\\$rson)",
+      (_, _) => "($lson/$key\\$rson)",
+    };
   }
 
   @override
